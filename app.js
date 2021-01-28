@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const questions = [
+const questions = [ // Inquirer questions
     {
         type: 'input',
         message: 'Employee name:',
@@ -95,54 +95,29 @@ const questions = [
 
 let allEmployees = [];
 
-//------------------------------------------------------Test Function------------------------------------------------------
-// function addEmployees() {
-//     if (answers.role === "Manager") {
-//         const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-//         allEmployees.push(newManager);
-//     } else if (answers.role === "Engineer") {
-//         const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-//         allEmployees.push(newEngineer);
-//     } else if (answers.role === "Intern") {
-//         const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
-//         allEmployees.push(newIntern);
-//     }
-// }
-//------------------------------------------------------Test Function------------------------------------------------------
-
+function addEmployees(answers) { // takes inquirer answers, turns them into specific classes, and pushes new class into allEmployees
+    if (answers.role === "Manager") {
+        const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        allEmployees.push(newManager);
+    } else if (answers.role === "Engineer") {
+        const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+        allEmployees.push(newEngineer);
+    } else if (answers.role === "Intern") {
+        const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        allEmployees.push(newIntern);
+    }
+}
 
 function init() {
     inquirer
         .prompt(questions)
-        .then(answers => {
+        .then(answers => { // Cycles through questions until user doesn't want to add another employee
             if (answers.another === 'y') {
-                // allEmployees.push(answers);
-                if (answers.role === "Manager") {
-                    const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-                    allEmployees.push(newManager);
-                } else if (answers.role === "Engineer") {
-                    const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-                    allEmployees.push(newEngineer);
-                } else if (answers.role === "Intern") {
-                    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
-                    allEmployees.push(newIntern);
-                }
-                // console.log(allEmployees);
+                addEmployees(answers);
                 init();
             } else {
-                // allEmployees.push(answers);
-                if (answers.role === "Manager") {
-                    const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-                    allEmployees.push(newManager);
-                } else if (answers.role === "Engineer") {
-                    const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-                    allEmployees.push(newEngineer);
-                } else if (answers.role === "Intern") {
-                    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
-                    allEmployees.push(newIntern);
-                }
-                // console.log(allEmployees);
-                fs.writeFile(outputPath, render(allEmployees), (err) =>
+                addEmployees(answers);
+                fs.writeFile(outputPath, render(allEmployees), (err) => // Generates team.html in output folder
                     err ? console.error(err) : console.log('Success!')
                 );
             }
