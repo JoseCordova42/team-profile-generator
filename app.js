@@ -127,7 +127,7 @@ function init() {
                     const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
                     allEmployees.push(newIntern);
                 }
-                console.log(allEmployees);
+                // console.log(allEmployees);
                 init();
             } else {
                 // allEmployees.push(answers);
@@ -141,7 +141,10 @@ function init() {
                     const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
                     allEmployees.push(newIntern);
                 }
-                console.log(allEmployees);
+                // console.log(allEmployees);
+                fs.writeFile(outputPath, render(allEmployees), (err) =>
+                    err ? console.error(err) : console.log('Success!')
+                );
             }
         });
 }
