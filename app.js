@@ -73,15 +73,75 @@ const questions = [
     }
 ];
 
+//------------------------------------------------------Test Code------------------------------------------------------
+// async function empQuestions() {
+//     return await inquirer
+//     .prompt(questions)
+//     .then(async answers => {
+//         return answers;
+//     });
+// }
+
+// async function init() {
+//     let empArr = [];
+
+//     while (empArr.length === 0 || empArr[empArr.length - 1].another === 'y') {
+//         empArr.push(await empQuestions());
+//     }
+
+//     console.log(empArr);
+// }
+//------------------------------------------------------Test Code------------------------------------------------------
+
+let allEmployees = [];
+
+//------------------------------------------------------Test Function------------------------------------------------------
+// function addEmployees() {
+//     if (answers.role === "Manager") {
+//         const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+//         allEmployees.push(newManager);
+//     } else if (answers.role === "Engineer") {
+//         const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+//         allEmployees.push(newEngineer);
+//     } else if (answers.role === "Intern") {
+//         const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
+//         allEmployees.push(newIntern);
+//     }
+// }
+//------------------------------------------------------Test Function------------------------------------------------------
+
+
 function init() {
     inquirer
         .prompt(questions)
         .then(answers => {
             if (answers.another === 'y') {
-                console.log(answers);
+                // allEmployees.push(answers);
+                if (answers.role === "Manager") {
+                    const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+                    allEmployees.push(newManager);
+                } else if (answers.role === "Engineer") {
+                    const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+                    allEmployees.push(newEngineer);
+                } else if (answers.role === "Intern") {
+                    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
+                    allEmployees.push(newIntern);
+                }
+                console.log(allEmployees);
                 init();
             } else {
-                console.log(answers);
+                // allEmployees.push(answers);
+                if (answers.role === "Manager") {
+                    const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+                    allEmployees.push(newManager);
+                } else if (answers.role === "Engineer") {
+                    const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+                    allEmployees.push(newEngineer);
+                } else if (answers.role === "Intern") {
+                    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
+                    allEmployees.push(newIntern);
+                }
+                console.log(allEmployees);
             }
         });
 }
